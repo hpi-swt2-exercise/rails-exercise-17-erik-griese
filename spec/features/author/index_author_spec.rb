@@ -13,7 +13,13 @@ describe "Author index page", type: :feature do
     expect(page).to have_text(author.name)
     expect(page).to have_text(author.homepage)
 
-	author.destroy
+  author.destroy
+  end
+
+  it "should have a link to the new author page" do
+    visit authors_path
+
+    expect(page).to have_link("add author", href: new_author_path)
   end
 
 end
