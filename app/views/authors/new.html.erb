@@ -1,6 +1,6 @@
 <h1>Create new author</h1>
 
-<%= form_for :article do |form_instance| %>
+<%= form_for :author, url: authors_path do |form_instance| %>
   <p>
     <%= form_instance.label :First_name %>
     <%= form_instance.text_field :First_name %>
@@ -14,6 +14,10 @@
   <p>
     <%= form_instance.label :Homepage %>
     <%= form_instance.text_field :Homepage %>
+  </p>
+
+  <p>
+    <%= form_instance.submit %>
   </p>
 <% end %>
 	
