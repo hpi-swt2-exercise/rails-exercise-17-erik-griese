@@ -28,4 +28,18 @@ describe "New author page", type: :feature do
     fill_in("author_homepage", with: "www.wikipedia.org/Alan_Turing")
     find('input[type="submit"]').click
   end
+
+  it "should store a new author in the database" do
+    visit new_author_path
+
+
+    fill_in("author_first_name", with: "Alan")
+    fill_in("author_last_name", with: "Turing")
+    fill_in("author_homepage", with: "www.wikipedia.org/Alan_Turing")
+    find('input[type="submit"]').click
+
+    inserted_author = Author.find_by(first_name: "Alan", last_name: "Turing", homepage: "www.wikipedia.org/Alan_Turing")
+    expect(inserted_author).not_to be_nil
+    inserted_author.destroy
+  end
 end
