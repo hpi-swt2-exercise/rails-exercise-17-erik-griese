@@ -13,13 +13,22 @@ describe "Author index page", type: :feature do
     expect(page).to have_text(author.name)
     expect(page).to have_text(author.homepage)
 
-  author.destroy
+    author.destroy
   end
 
   it "should have a link to the new author page" do
     visit authors_path
 
     expect(page).to have_link("Add author", href: new_author_path)
+  end
+
+  it "should have a show link for each author" do
+    author = FactoryGirl.create :author
+    
+    visit authors_path
+    expect(page).to have_link("Show", href: author_path(author))
+
+    author.destroy
   end
 
 end
