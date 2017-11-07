@@ -1,0 +1,32 @@
+<%= form_for @author do |form_instance| %>
+
+  <% if @author.errors.any? %>
+    <div id="error_section">
+      <h2><%= pluralize(@author.errors.count, "error") %> prevented this author from being saved</h2>
+      <ul>
+        <% @author.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <p>
+    <%= form_instance.label :first_name %>
+    <%= form_instance.text_field :first_name %>
+  </p>
+
+  <p>
+    <%= form_instance.label :last_name %>
+    <%= form_instance.text_field :last_name %>
+  </p>
+
+  <p>
+    <%= form_instance.label :homepage %>
+    <%= form_instance.text_field :homepage %>
+  </p>
+
+  <p>
+    <%= form_instance.submit %>
+  </p>
+<% end %>
