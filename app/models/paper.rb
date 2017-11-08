@@ -1,4 +1,4 @@
 class Paper < ActiveRecord::Base
   has_many :authors
-  validates :title, :venue, presence: true
+  validates :title, :venue, :year, presence: true
 end
