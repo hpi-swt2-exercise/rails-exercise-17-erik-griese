@@ -40,4 +40,13 @@ describe "Author index page", type: :feature do
     author.destroy
   end
 
+  it "should have a destroy link" do
+    author = FactoryGirl.create :author
+
+    visit authors_path
+    expect(page).to have_link('Destroy', href: author_path(author))
+
+    author.destroy
+  end
+
 end
