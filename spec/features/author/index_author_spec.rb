@@ -31,4 +31,13 @@ describe "Author index page", type: :feature do
     author.destroy
   end
 
+  it "should have an edit link for each author" do
+    author = FactoryGirl.create :author
+
+    visit authors_path
+    expect(page).to have_link("Edit", href: edit_author_path(author))
+
+    author.destroy
+  end
+
 end
