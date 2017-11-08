@@ -13,6 +13,7 @@ class PapersController < ApplicationController
     if params_safe.has_key?(:year)
       try_convert_year(params_safe)
     end
+
     @paper = Paper.new(params_safe)
 
     if @paper.save
