@@ -1,0 +1,32 @@
+<%= form_for @paper do |form_instance| %>
+
+  <% if @paper.errors.any? %>
+    <div id="error_section">
+      <h2><%= pluralize(@paper.errors.count, "error") %> prevented this paper from being saved</h2>
+      <ul>
+        <% @paper.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <p>
+    <%= form_instance.label :title %>
+    <%= form_instance.text_field :title %>
+  </p>
+
+  <p>
+    <%= form_instance.label :venue %>
+    <%= form_instance.text_field :venue %>
+  </p>
+
+  <p>
+    <%= form_instance.label :year %>
+    <%= form_instance.text_field :year %>
+  </p>
+
+  <p>
+    <%= form_instance.submit %>
+  </p>
+<% end %>
