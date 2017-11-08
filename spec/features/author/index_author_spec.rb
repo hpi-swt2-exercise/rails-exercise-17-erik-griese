@@ -49,4 +49,13 @@ describe "Author index page", type: :feature do
     author.destroy
   end
 
+  it "should successfully delete the author when the destroy link is used" do
+    author = FactoryGirl.create :author
+
+    visit authors_path
+    page.find_link('Destroy', href: author_path(author)).click
+
+    expect(Author.where(id: author.id)).not_to be_present
+  end
+
 end
