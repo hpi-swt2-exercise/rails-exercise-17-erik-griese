@@ -14,4 +14,10 @@ RSpec.describe Paper, type: :model do
     expect(paper).not_to be_valid
   end
 
+  it "should fail validation without a year" do
+    paper_authors = FactoryGirl.build_list :author, 1
+    paper = Paper.new(title: "Breaking Time", venue: "Mgz", authors: paper_authors)
+    expect(paper).not_to be_valid
+  end
+
 end
