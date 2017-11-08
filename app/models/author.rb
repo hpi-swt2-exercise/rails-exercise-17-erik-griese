@@ -1,5 +1,5 @@
 class Author < ActiveRecord::Base
-  has_many :papers
+  has_and_belongs_to_many :papers
   validates :last_name, presence: true
 
   def name
