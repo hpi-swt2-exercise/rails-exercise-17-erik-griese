@@ -15,5 +15,24 @@ describe "New author page", type: :feature do
 
     expect(page).to have_css('input[type="submit"]')
   end
+
+  it "should save the paper when the user submitted one via the form" do
+    visit new_paper_path
+
+    title = "Breaking Time"
+    venue = "Mgz"
+    year = "2015"
+
+    fill_in("paper_title", with: title)
+    fill_in("paper_venue", with: venue)
+    fill_in("paper_year", with: year)
+
+    find('input[type="submit"]').click
+
+    inserted_paper = Paper.find_by(title: title, venue: venue, year: year.to_i)
+    expect(inserted_paper).not_to be_nil
+
+    inserted_paper.destroy
+  end
   
 end
