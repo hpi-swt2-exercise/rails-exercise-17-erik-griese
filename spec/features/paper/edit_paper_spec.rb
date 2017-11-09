@@ -34,4 +34,16 @@ describe "Edit paper page", type: :feature do
     updated_paper.destroy
   end
 
+  it "should allow selecting 5 authors" do
+    paper = FactoryGirl.create :paper
+
+    visit edit_paper_path(paper)
+
+    1.upto(5) do |i|
+      expect(page).to have_field("Author #{i}")
+    end
+
+    paper.destroy
+  end
+
 end

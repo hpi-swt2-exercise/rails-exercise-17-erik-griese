@@ -34,5 +34,13 @@ describe "New author page", type: :feature do
 
     inserted_paper.destroy
   end
+
+  it "should allow selecting 5 authors" do
+    visit new_paper_path
+
+    1.upto(5) do |i|
+      expect(page).to have_field("Author #{i}")
+    end
+  end
   
 end
