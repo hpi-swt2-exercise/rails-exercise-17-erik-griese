@@ -1,6 +1,7 @@
 class PapersController < ApplicationController
 
   def index
+    @filter_params = paper_index_params
     @papers = Paper.all
   end
 
@@ -52,6 +53,10 @@ class PapersController < ApplicationController
   private
     def paper_params
       params.require(:paper).permit(:title, :venue, :year, :author_ids => [])
+    end
+
+    def paper_index_params
+      params.permit(:year)
     end
 
     def convert_year(params_safe)

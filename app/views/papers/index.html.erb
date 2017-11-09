@@ -9,17 +9,9 @@
   </tr>
 
   <% @papers.each do |paper| %>
-    <tr>
-      <td><%= paper.title %></td>
-      <td><%= paper.venue %></td>
-      <td><%= paper.year %></td>
-      <td><%= link_to "Show", paper_path(paper) %></td>
-      <td><%= link_to "Edit", edit_paper_path(paper) %></td>
-      <td>
-        <%= link_to "Destroy", paper_path(paper),
-            method: :delete, data: {confirm: 'Are you sure?'} %>
-      </td>
-    </tr>
+    <% if !@filter_params.has_key?(:year) or @filter_params[:year] == paper.year.to_s %>
+      <%= render paper %>
+    <% end %>
   <% end %>
 </table>
 
