@@ -9,9 +9,7 @@
   </tr>
 
   <% @papers.each do |paper| %>
-    <% if !@filter_params.has_key?(:year) or @filter_params[:year] == paper.year.to_s %>
-      <%= render paper %>
-    <% end %>
+    <%= render paper %>
   <% end %>
 </table>
 
