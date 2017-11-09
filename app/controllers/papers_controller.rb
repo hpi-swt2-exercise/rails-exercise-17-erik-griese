@@ -13,10 +13,7 @@ class PapersController < ApplicationController
   end
 
   def create
-    params_safe = paper_params
-    if params_safe.has_key?(:year)
-      try_convert_year(params_safe)
-    end
+    params_safe = convert_year(paper_params)
 
     @paper = Paper.new(params_safe)
 
@@ -27,14 +24,36 @@ class PapersController < ApplicationController
     end
   end
 
+  def edit
+    @paper = Paper.find(params[:id])
+  end
+
+  def update
+    @paper = Paper.find(params[:id])
+    params_safe = convert_year(paper_params)
+
+    if @paper.update(params_safe)
+      redirect_to @paper
+    else
+      render 'edit'
+    end
+  end
+
   private
     def paper_params
       params.require(:paper).permit(:title, :venue, :year)
     end
 
-    def try_convert_year(params_safe)
+    def convert_year(params_safe)
+      if not params_safe.has_key?(:year)
+        return params_safe
+      end
+
+      converted_params = params_safe
       num_string = params_safe[:year]
       num = num_string.to_i
-      params_safe[:year] = if num.to_s == num_string then num else num_string end
+      converted_params[:year] = if num.to_s == num_string then num else num_string end
+
+      return converted_params
     end
 end
