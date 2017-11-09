@@ -26,4 +26,10 @@ describe "Paper index page", type: :feature do
     paper.destroy
   end
 
+  it "should have a link to the new paper page" do
+    visit papers_path
+
+    expect(page).to have_link("Add paper", href: new_paper_path)
+  end
+
 end
