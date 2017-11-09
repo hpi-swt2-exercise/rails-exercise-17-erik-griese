@@ -32,15 +32,25 @@ describe "Paper index page", type: :feature do
     expect(page).to have_link("Add paper", href: new_paper_path)
   end
 
-  it "should have a show and edit link" do
+  it "should have a show, edit and destroy link" do
     paper = FactoryGirl.create :paper
 
     visit papers_path
 
     expect(page).to have_link("Show", href: paper_path(paper))
     expect(page).to have_link("Edit", href: edit_paper_path(paper))
+    expect(page).to have_link("Destroy", href: paper_path(paper))
 
     paper.destroy
+  end
+
+  it "should successfully delete an author, when the destroy link is used" do
+    paper = FactoryGirl.create :paper
+
+    visit papers_path
+    page.find_link("Destroy", href: paper_path(paper)).click
+
+    expect(Paper.where(id: paper.id)).not_to be_present
   end
 
 end
