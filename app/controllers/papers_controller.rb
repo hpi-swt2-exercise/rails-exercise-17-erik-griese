@@ -14,6 +14,7 @@ class PapersController < ApplicationController
 
   def create
     params_safe = convert_year(paper_params)
+    convert_author_ids(params_safe)
 
     @paper = Paper.new(params_safe)
 
@@ -31,6 +32,7 @@ class PapersController < ApplicationController
   def update
     @paper = Paper.find(params[:id])
     params_safe = convert_year(paper_params)
+    convert_author_ids(params_safe)
 
     if @paper.update(params_safe)
       redirect_to @paper
@@ -49,7 +51,7 @@ class PapersController < ApplicationController
 
   private
     def paper_params
-      params.require(:paper).permit(:title, :venue, :year)
+      params.require(:paper).permit(:title, :venue, :year, :author_ids => [])
     end
 
     def convert_year(params_safe)
@@ -63,5 +65,15 @@ class PapersController < ApplicationController
       converted_params[:year] = if num.to_s == num_string then num else num_string end
 
       return converted_params
+    end
+
+    def convert_author_ids(params_safe)
+      if not params_safe.has_key?(:author_ids)
+        return params_safe
+      end
+
+      params_safe[:author_ids].delete_if { |element| element.empty? }
+      params_safe[:author_ids].map! { |id_string| id_string.to_i }
+      return params_safe
     end
 end
