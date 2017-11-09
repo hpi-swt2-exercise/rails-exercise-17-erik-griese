@@ -53,4 +53,21 @@ describe "Paper index page", type: :feature do
     expect(Paper.where(id: paper.id)).not_to be_present
   end
 
+  it "should allow to filter by year with an extra parameter" do
+    paper = FactoryGirl.create :paper
+
+    title2 = "Old Paper"
+    venue2 = "Old Mgz"
+    year2 = 1940
+    paper2 = Paper.create(title: title2, venue: venue2, year: year2)
+
+    visit (papers_path + "?year=#{paper.year}")
+
+    expect(page).to have_text(paper.title)
+    expect(page).not_to have_text(paper2.title)
+
+    paper.destroy
+    paper2.destroy
+  end
+
 end
