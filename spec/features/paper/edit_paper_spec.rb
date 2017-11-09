@@ -46,4 +46,22 @@ describe "Edit paper page", type: :feature do
     paper.destroy
   end
 
+  it "should save changes to the author list" do
+    paper = FactoryGirl.create :paper
+
+    new_author = Author.create(first_name: 'Peter', last_name: 'Plago')
+
+    visit edit_paper_path(paper)
+
+    find_field("paper_author_id_1").find("option[value=\"#{new_author.id}\"]").select_option
+    find('input[type="submit"]').click
+
+    updated_paper = Paper.find(paper.id)
+    expect(updated_paper.author_ids.first).to eq(new_author.id)
+
+    updated_paper.destroy
+	new_author.destroy
+  end
+
+
 end
