@@ -13,4 +13,14 @@ describe "Show paper page", type: :feature do
 
     paper.destroy
   end
+
+  it "should show the author names" do
+    paper = FactoryGirl.create :paper
+
+    visit paper_path(paper)
+
+    expect(page).to have_text(paper.authors.first.name)
+
+    paper.destroy
+  end
 end
