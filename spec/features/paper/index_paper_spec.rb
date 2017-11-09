@@ -32,4 +32,14 @@ describe "Paper index page", type: :feature do
     expect(page).to have_link("Add paper", href: new_paper_path)
   end
 
+  it "should have a show link" do
+    paper = FactoryGirl.create :paper
+
+    visit papers_path
+
+    expect(page).to have_link("Show", href: paper_path(paper))
+
+    paper.destroy
+  end
+
 end
