@@ -5,6 +5,7 @@
     <th>Title</th>
     <th>Venue</th>
     <th>Year</th>
+    <th colspan="1"/>
   </tr>
 
   <% @papers.each do |paper| %>
@@ -12,6 +13,7 @@
       <td><%= paper.title %></td>
       <td><%= paper.venue %></td>
       <td><%= paper.year %></td>
+      <td><%= link_to "Show", paper_path(paper) %></td>
     </tr>
   <% end %>
 </table>
